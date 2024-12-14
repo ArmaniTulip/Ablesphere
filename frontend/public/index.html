@@ -6,10 +6,283 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdaptAI Frontend</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        header {
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        #chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chat-box {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        #input-container {
+            display: flex;
+            gap: 0.5rem;
+            height: 100px; /* Fixed height for the input container */
+        }
+
+        textarea {
+            flex: 1;
+            height: 100%; /* Full height of the input container */
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            resize: none; /* Disable resizing */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 100%; /* Full height of the input container */
+            background-color: #d8c3a5; /* Earthy button color */
+            color: #333;
+        }
+
+        button:hover {
+            background-color: #e98074; /* Earthy hover color */
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            animation: fadeIn 0.5s;
+            word-wrap: break-word; /* Ensure long words break and wrap */
+            white-space: pre-wrap; /* Preserve whitespace and wrap text */
+        }
+
+        .message p {
+            margin: 0.5rem 0;
+        }
+
+        .message.user {
+            text-align: right;
+            color: #333;
+            background-color: #f4f1ea; /* Light background for user messages */
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .message.ai {
+            text-align: left;
+            color: #8d8741;
+            background-color: #eae7dc; /* Light background for AI messages */
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .typing-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin: 0 2px;
+            background-color: #8d8741;
+            animation: blink 1s infinite;
+        }
+
+        .typing-indicator .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Light Theme */
+        body.light {
+            background-color: #f4f1ea; /* Light earthy background color */
+            color: #333;
+        }
+
+        header.light {
+            background-color: #8d8741; /* Light earthy header color */
+            color: #fff;
+        }
+
+        #chat-container.light {
+            background-color: #eae7dc; /* Light earthy section color */
+        }
+
+        #chat-box.light {
+            background-color: #f4f1ea;
+        }
+
+        textarea.light, button.light {
+            background-color: #d8c3a5; /* Light earthy button color */
+            color: #333;
+        }
+
+        button.light:hover {
+            background-color: #e98074; /* Light earthy hover color */
+        }
+
+        .typing-indicator .dot.light {
+            background-color: #8d8741;
+        }
+
+        /* Dark Theme */
+        body.dark {
+            background-color: #2e2e2e; /* Dark earthy background color */
+            color: #f4f1ea;
+        }
+
+        header.dark {
+            background-color: #4b4b4b; /* Dark earthy header color */
+            color: #f4f1ea;
+        }
+
+        #chat-container.dark {
+            background-color: #3e3e3e; /* Dark earthy section color */
+        }
+
+        #chat-box.dark {
+            background-color: #2e2e2e;
+        }
+
+        textarea.dark, button.dark {
+            background-color: #5a5a5a; /* Dark earthy button color */
+            color: #f4f1ea;
+        }
+
+        button.dark:hover {
+            background-color: #7a7a7a; /* Dark earthy hover color */
+        }
+
+        .message.user.dark {
+            background-color: #4b4b4b; /* Dark background for user messages */
+            color: #f4f1ea; /* Light text color for user messages */
+        }
+
+        .message.ai.dark {
+            background-color: #5a5a5a; /* Dark background for AI messages */
+            color: #f4f1ea; /* Light text color for AI messages */
+        }
+
+        .typing-indicator .dot.dark {
+            background-color: #4b4b4b;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #aa864f;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Welcome to AdaptAI</h1>
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
+            <span class="slider round"></span>
+        </label>
     </header>
     <main>
         <section id="chat-container">
@@ -21,6 +294,113 @@
             </div>
         </section>
     </main>
-    <script src="app.js"></script>
+    <script>
+        async function generateResponse() {
+            const prompt = document.getElementById('prompt').value;
+            const chatBox = document.getElementById('chat-box');
+
+            if (!prompt.trim()) return;
+
+            // Create user message element
+            const userMessageElement = document.createElement('div');
+            userMessageElement.classList.add('message', 'user');
+            if (document.body.classList.contains('dark')) {
+                userMessageElement.classList.add('dark');
+            }
+            userMessageElement.innerHTML = `<p><strong>You:</strong> ${prompt}</p>`;
+
+            // Append user message to the chat box
+            chatBox.appendChild(userMessageElement);
+
+            // Clear the input
+            document.getElementById('prompt').value = '';
+
+            // Create typing indicator
+            const typingIndicator = document.createElement('div');
+            typingIndicator.classList.add('typing-indicator');
+            typingIndicator.innerHTML = `
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            `;
+
+            // Append typing indicator to the chat box
+            chatBox.appendChild(typingIndicator);
+
+            // Scroll to the bottom of the chat box
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Simulate an AI response
+            setTimeout(() => {
+                // Remove typing indicator
+                chatBox.removeChild(typingIndicator);
+
+                const response = `AI Response to: "${prompt}"`;
+
+                // Create AI message element
+                const aiMessageElement = document.createElement('div');
+                aiMessageElement.classList.add('message', 'ai');
+                if (document.body.classList.contains('dark')) {
+                    aiMessageElement.classList.add('dark');
+                }
+                aiMessageElement.innerHTML = `<p><strong>AI:</strong> ${response}</p>`;
+
+                // Append AI message to the chat box
+                chatBox.appendChild(aiMessageElement);
+
+                // Scroll to the bottom of the chat box
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000); // Simulate a delay for AI response
+        }
+
+        function clearChat() {
+            const chatBox = document.getElementById('chat-box');
+            chatBox.innerHTML = '';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const header = document.querySelector('header');
+            const chatContainer = document.getElementById('chat-container');
+            const chatBox = document.getElementById('chat-box');
+            const textarea = document.querySelector('textarea');
+            const buttons = document.querySelectorAll('button');
+            const dots = document.querySelectorAll('.dot');
+            const messages = document.querySelectorAll('.message');
+
+            body.classList.toggle('dark');
+            body.classList.toggle('light');
+            header.classList.toggle('dark');
+            header.classList.toggle('light');
+            chatContainer.classList.toggle('dark');
+            chatContainer.classList.toggle('light');
+            chatBox.classList.toggle('dark');
+            chatBox.classList.toggle('light');
+            textarea.classList.toggle('dark');
+            textarea.classList.toggle('light');
+            buttons.forEach(button => {
+                button.classList.toggle('dark');
+                button.classList.toggle('light');
+            });
+            dots.forEach(dot => {
+                dot.classList.toggle('dark');
+                dot.classList.toggle('light');
+            });
+            messages.forEach(message => {
+                message.classList.toggle('dark');
+            });
+        }
+
+        // Set initial theme
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('light');
+            document.querySelector('header').classList.add('light');
+            document.getElementById('chat-container').classList.add('light');
+            document.getElementById('chat-box').classList.add('light');
+            document.querySelector('textarea').classList.add('light');
+            document.querySelectorAll('button').forEach(button => button.classList.add('light'));
+            document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
+        });
+    </script>
 </body>
 </html>

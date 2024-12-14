@@ -2,7 +2,6 @@
 async function generateResponse() {
     const prompt = document.getElementById('prompt').value;
     const chatBox = document.getElementById('chat-box');
-    const loading = document.getElementById('loading');
 
     if (!prompt.trim()) return;
 
@@ -56,3 +55,43 @@ function clearChat() {
     const chatBox = document.getElementById('chat-box');
     chatBox.innerHTML = '';
 }
+
+function toggleTheme() {
+    const body = document.body;
+    const header = document.querySelector('header');
+    const chatContainer = document.getElementById('chat-container');
+    const chatBox = document.getElementById('chat-box');
+    const textarea = document.querySelector('textarea');
+    const buttons = document.querySelectorAll('button');
+    const dots = document.querySelectorAll('.dot');
+
+    body.classList.toggle('dark');
+    body.classList.toggle('light');
+    header.classList.toggle('dark');
+    header.classList.toggle('light');
+    chatContainer.classList.toggle('dark');
+    chatContainer.classList.toggle('light');
+    chatBox.classList.toggle('dark');
+    chatBox.classList.toggle('light');
+    textarea.classList.toggle('dark');
+    textarea.classList.toggle('light');
+    buttons.forEach(button => {
+        button.classList.toggle('dark');
+        button.classList.toggle('light');
+    });
+    dots.forEach(dot => {
+        dot.classList.toggle('dark');
+        dot.classList.toggle('light');
+    });
+}
+
+// Set initial theme
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('light');
+    document.querySelector('header').classList.add('light');
+    document.getElementById('chat-container').classList.add('light');
+    document.getElementById('chat-box').classList.add('light');
+    document.querySelector('textarea').classList.add('light');
+    document.querySelectorAll('button').forEach(button => button.classList.add('light'));
+    document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
+});

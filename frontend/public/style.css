@@ -34,7 +34,7 @@ textarea {
 }
 
 button {
-    background-color: #d8c3a5; /* Earthy button color */
+    background-color: #d4d8c5; /* Earthy button color */
     color: #333;
     padding: 0.5rem 1rem;
     border: none;
@@ -43,7 +43,7 @@ button {
 }
 
 button:hover {
-    background-color: #e98074; /* Earthy hover color */
+    background-color: #6b726b; /* Earthy hover color */
 }
 
 #response {
