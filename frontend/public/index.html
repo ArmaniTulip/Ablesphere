@@ -1,6 +1,6 @@
 <!-- filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="""en"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +22,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         main {
@@ -56,7 +62,7 @@
         #input-container {
             display: flex;
             gap: 0.5rem;
-            height: 100px; /* Fixed height for the input container */
+            height: 50px; /* Adjusted height for the input container */
         }
 
         textarea {
@@ -75,12 +81,12 @@
             border-radius: 4px;
             cursor: pointer;
             height: 100%; /* Full height of the input container */
-            background-color: #d8c3a5; /* Earthy button color */
-            color: #333;
+            background-color: #228B22; /* Forest green button color */
+            color: #fff;
         }
 
         button:hover {
-            background-color: #e98074; /* Earthy hover color */
+            background-color: #006400; /* Darker green hover color */
         }
 
         .hidden {
@@ -279,10 +285,13 @@
 <body>
     <header>
         <h1>Welcome to AdaptAI</h1>
-        <label class="switch">
-            <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
-            <span class="slider round"></span>
-        </label>
+        <div class="theme-toggle">
+            <label class="switch">
+                <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
+                <span class="slider round"></span>
+            </label>
+            <span id="theme-label">Light Mode</span>
+        </div>
     </header>
     <main>
         <section id="chat-container">
@@ -367,6 +376,7 @@
             const buttons = document.querySelectorAll('button');
             const dots = document.querySelectorAll('.dot');
             const messages = document.querySelectorAll('.message');
+            const themeLabel = document.getElementById('theme-label');
 
             body.classList.toggle('dark');
             body.classList.toggle('light');
@@ -389,6 +399,13 @@
             messages.forEach(message => {
                 message.classList.toggle('dark');
             });
+
+            // Update theme label
+            if (body.classList.contains('dark')) {
+                themeLabel.textContent = 'Dark Mode';
+            } else {
+                themeLabel.textContent = 'Light Mode';
+            }
         }
 
         // Set initial theme
