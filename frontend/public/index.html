@@ -6,84 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdaptAI Frontend</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f1ea; /* Earthy background color */
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        header {
-            background-color: #8d8741; /* Earthy header color */
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        #chat-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            width: 100%;
-            max-width: 600px;
-            height: 80vh;
-            background-color: #eae7dc; /* Earthy section color */
-            border-radius: 8px;
-            padding: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        #chat-box {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            background-color: #f4f1ea;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        #input-container {
-            display: flex;
-            gap: 0.5rem;
-            height: 60px; /* Fixed height for the input container */
-        }
-
-        textarea {
-            flex: 1;
-            height: 100%; /* Full height of the input container */
-            padding: 0.5rem;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #d8c3a5; /* Earthy button color */
-            color: #333;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            height: 100%; /* Full height of the input container */
-        }
-
-        button:hover {
-            background-color: #e98074; /* Earthy hover color */
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -95,6 +17,7 @@
             <div id="input-container">
                 <textarea id="prompt" placeholder="Type your question here..."></textarea>
                 <button onclick="generateResponse()">Submit</button>
+                <button onclick="clearChat()">Clear Chat</button>
             </div>
         </section>
     </main>
