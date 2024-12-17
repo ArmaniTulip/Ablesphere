@@ -67,26 +67,34 @@ function toggleTheme() {
     const messages = document.querySelectorAll('.message');
     const themeLabel = document.getElementById('theme-label');
 
-     // Toggle between 'dark' and 'light' classes
-     const theme = body.classList.contains('dark') ? 'light' : 'dark';
-    
-     body.classList.remove('light', 'dark');
-     body.classList.add(theme);
-     header.classList.remove('light', 'dark');
-     header.classList.add(theme);
-     chatContainer.classList.remove('light', 'dark');
-     chatContainer.classList.add(theme);
-     chatBox.classList.remove('light', 'dark');
-     chatBox.classList.add(theme);
-     textarea.classList.remove('light', 'dark');
-     textarea.classList.add(theme);
-     buttons.forEach(button => button.classList.remove('light', 'dark').add(theme));
-     dots.forEach(dot => dot.classList.remove('light', 'dark').add(theme));
-     messages.forEach(message => message.classList.toggle('dark'));
- 
+    body.classList.toggle('dark');
+    body.classList.toggle('light');
+    header.classList.toggle('dark');
+    header.classList.toggle('light');
+    chatContainer.classList.toggle('dark');
+    chatContainer.classList.toggle('light');
+    chatBox.classList.toggle('dark');
+    chatBox.classList.toggle('light');
+    textarea.classList.toggle('dark');
+    textarea.classList.toggle('light');
+    buttons.forEach(button => {
+        button.classList.toggle('dark');
+        button.classList.toggle('light');
+    });
+    dots.forEach(dot => {
+        dot.classList.toggle('dark');
+        dot.classList.toggle('light');
+    });
+    messages.forEach(message => {
+        message.classList.toggle('dark');
+    });
 
     // Update theme label
-    themeLabel.textContent = theme === 'dark' ? 'Dark Mode' : 'Light Mode';
+    if (body.classList.contains('dark')) {
+        themeLabel.textContent = 'Dark Mode';
+    } else {
+        themeLabel.textContent = 'Light Mode';
+    }
 }
 
 // Task Prompt
