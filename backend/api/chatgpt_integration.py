@@ -1,15 +1,18 @@
-import openai
 import os
 from dotenv import load_dotenv
+import openai
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def get_chatgpt_response(prompt):
+# Your OpenAI API key
+api_key = os.getenv('OPENAI_API_KEY')
+
+# Example function to call OpenAI API
+def get_openai_response(prompt):
+    openai.api_key = api_key
     response = openai.Completion.create(
-        model="text-davinci-004",
+        engine="davinci",
         prompt=prompt,
-        max_tokens=50
+        max_tokens=150
     )
     return response.choices[0].text.strip()
-

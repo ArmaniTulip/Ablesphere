@@ -1,6 +1,6 @@
 <!-- filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/index.html -->
 <!DOCTYPE html>
-<html lang="""en"></html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +36,7 @@
             justify-content: center;
             align-items: center;
             padding: 2rem;
+            flex-direction: column;
         }
 
         #chat-container {
@@ -294,152 +295,33 @@
         </div>
     </header>
     <main>
+        <section id="task-prompt">
+            <h2>Task Prompt</h2>
+            <input type="text" id="taskInput" placeholder="Enter your task">
+            <button id="sendTask">Send Task</button>
+            <div id="response"></div>
+        </section>
+
+        <section id="frustration-simulation">
+            <h2>Frustration Simulation</h2>
+            <button id="simulateFrustration">Simulate Frustration</button>
+            <div id="intervention"></div>
+        </section>
+
+        <section id="adaptive-behavior">
+            <h2>Adaptive Behavior</h2>
+            <button id="completeTask">Complete Task</button>
+            <div id="adaptiveMessage"></div>
+        </section>
+
         <section id="chat-container">
+            <h2>Chat</h2>
             <div id="chat-box"></div>
-            <div id="input-container">
-                <textarea id="prompt" placeholder="Type your question here..."></textarea>
-                <button onclick="generateResponse()">Submit</button>
-                <button onclick="clearChat()">Clear Chat</button>
-            </div>
+            <textarea id="prompt" placeholder="Type your message here..."></textarea>
+            <button onclick="generateResponse()">Send</button>
+            <button onclick="clearChat()">Clear Chat</button>
         </section>
     </main>
-    <script>
-        async function generateResponse() {
-            const prompt = document.getElementById('prompt').value;
-            const chatBox = document.getElementById('chat-box');
-
-            if (!prompt.trim()) return;
-
-            // Create user message element
-            const userMessageElement = document.createElement('div');
-            userMessageElement.classList.add('message', 'user');
-            if (document.body.classList.contains('dark')) {
-                userMessageElement.classList.add('dark');
-            }
-            userMessageElement.innerHTML = `<p><strong>You:</strong> ${prompt}</p>`;
-
-            // Append user message to the chat box
-            chatBox.appendChild(userMessageElement);
-
-            // Clear the input
-            document.getElementById('prompt').value = '';
-
-            // Create typing indicator
-            const typingIndicator = document.createElement('div');
-            typingIndicator.classList.add('typing-indicator');
-            typingIndicator.innerHTML = `
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            `;
-
-            // Append typing indicator to the chat box
-            chatBox.appendChild(typingIndicator);
-
-            // Scroll to the bottom of the chat box
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Simulate an AI response
-            setTimeout(() => {
-                // Remove typing indicator
-                chatBox.removeChild(typingIndicator);
-
-                const response = `AI Response to: "${prompt}"`;
-
-                // Create AI message element
-                const aiMessageElement = document.createElement('div');
-                aiMessageElement.classList.add('message', 'ai');
-                if (document.body.classList.contains('dark')) {
-                    aiMessageElement.classList.add('dark');
-                }
-                aiMessageElement.innerHTML = `<p><strong>AI:</strong> ${response}</p>`;
-
-                // Append AI message to the chat box
-                chatBox.appendChild(aiMessageElement);
-
-                // Scroll to the bottom of the chat box
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 1000); // Simulate a delay for AI response
-        }
-
-        function clearChat() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.innerHTML = '';
-        }
-
-        function toggleTheme() {
-            const body = document.body;
-            const header = document.querySelector('header');
-            const chatContainer = document.getElementById('chat-container');
-            const chatBox = document.getElementById('chat-box');
-            const textarea = document.querySelector('textarea');
-            const buttons = document.querySelectorAll('button');
-            const dots = document.querySelectorAll('.dot');
-            const messages = document.querySelectorAll('.message');
-            const themeLabel = document.getElementById('theme-label');
-
-            body.classList.toggle('dark');
-            body.classList.toggle('light');
-            header.classList.toggle('dark');
-            header.classList.toggle('light');
-            chatContainer.classList.toggle('dark');
-            chatContainer.classList.toggle('light');
-            chatBox.classList.toggle('dark');
-            chatBox.classList.toggle('light');
-            textarea.classList.toggle('dark');
-            textarea.classList.toggle('light');
-            buttons.forEach(button => {
-                button.classList.toggle('dark');
-                button.classList.toggle('light');
-            });
-            dots.forEach(dot => {
-                dot.classList.toggle('dark');
-                dot.classList.toggle('light');
-            });
-            messages.forEach(message => {
-                message.classList.toggle('dark');
-            });
-
-            // Update theme label
-            if (body.classList.contains('dark')) {
-                themeLabel.textContent = 'Dark Mode';
-            } else {
-                themeLabel.textContent = 'Light Mode';
-            }
-        }
-
-        // Set initial theme
-        document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('light');
-            document.querySelector('header').classList.add('light');
-            document.getElementById('chat-container').classList.add('light');
-            document.getElementById('chat-box').classList.add('light');
-            document.querySelector('textarea').classList.add('light');
-            document.querySelectorAll('button').forEach(button => button.classList.add('light'));
-            document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
-        });
-
-        
-</script>
-
-<section id="task-prompt">
-    <h2>Task Prompt</h2>
-    <input type="text" id="taskInput" placeholder="Enter your task">
-    <button id="sendTask">Send Task</button>
-    <div id="response"></div>
-</section>
-
-<section id="frustration-simulation">
-    <h2>Frustration Simulation</h2>
-    <button id="simulateFrustration">Simulate Frustration</button>
-    <div id="intervention"></div>
-</section>
-
-<section id="adaptive-behavior">
-    <h2>Adaptive Behavior</h2>
-    <button id="completeTask">Complete Task</button>
-    <div id="adaptiveMessage"></div>
-</section>
-
+    <script src="app.js"></script>
 </body>
 </html>

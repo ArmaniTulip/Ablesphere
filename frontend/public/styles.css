@@ -1,63 +1,69 @@
+/* filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/styles.css */
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f1ea; /* Earthy background color */
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 header {
+    background-color: #8d8741; /* Earthy header color */
+    color: #fff;
     padding: 1rem;
     text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 main {
     flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 2rem;
-}
-
-#chat-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    width: 100%;
-    max-width: 600px;
-    height: 80vh;
-    border-radius: 8px;
-    padding: 1rem;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    gap: 2rem;
 }
 
-#chat-box {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+section {
+    background-color: #eae7dc; /* Earthy section color */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #8d8741;
 }
 
 #input-container {
     display: flex;
     gap: 0.5rem;
-    height: 100px; /* Fixed height for the input container */
+    height: 50px; /* Adjusted height for the input container */
 }
 
-textarea {
+input[type="text"], textarea {
     flex: 1;
     height: 100%; /* Full height of the input container */
     padding: 0.5rem;
     border-radius: 4px;
     border: 1px solid #ccc;
-    resize: none; /* Disable resizing */
-    overflow-y: auto; /* Enable vertical scrolling */
+    resize: none;
+    overflow-y: auto;
 }
 
 button {
@@ -65,13 +71,13 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    height: 100%; /* Full height of the input container */
-    background-color: #d8c3a5; /* Earthy button color */
-    color: #333;
+    height: 100%;
+    background-color: #228B22;
+    color: #fff;
 }
 
 button:hover {
-    background-color: #e98074; /* Earthy hover color */
+    background-color: #006400; /* Darker green hover color */
 }
 
 .hidden {
@@ -81,6 +87,8 @@ button:hover {
 .message {
     margin-bottom: 1rem;
     animation: fadeIn 0.5s;
+    word-wrap: break-word; /* Ensure long words break and wrap */
+    white-space: pre-wrap; /* Preserve whitespace and wrap text */
 }
 
 .message p {
@@ -114,6 +122,7 @@ button:hover {
     height: 8px;
     border-radius: 50%;
     margin: 0 2px;
+    background-color: #8d8741;
     animation: blink 1s infinite;
 }
 
@@ -141,6 +150,15 @@ button:hover {
     50% {
         opacity: 1;
     }
+}
+
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
 /* Light Theme */

@@ -1,13 +1,14 @@
-from flask import request, jsonify
-from chatgpt_integration import get_chatgpt_response
-from adaptive_logic import user_data
+from flask import Flask, request, jsonify
+from chatgpt_integration import get_openai_response  # Correct function name
+
+user_data = {}
 
 def setup_routes(app):
     @app.route('/api/task_prompt', methods=['POST'])
     def task_prompt():
         data = request.json
         user_input = data.get('task', '')
-        response = get_chatgpt_response(f"Motivate a student to complete this task: {user_input}")
+        response = get_openai_response(user_input)
         return jsonify({"response": response})
 
     @app.route('/api/frustration', methods=['POST'])
@@ -44,4 +45,3 @@ def setup_routes(app):
     @app.route('/about')
     def about():
         return "This is the about page"
-
