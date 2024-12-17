@@ -418,6 +418,28 @@
             document.querySelectorAll('button').forEach(button => button.classList.add('light'));
             document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
         });
-    </script>
+
+        
+</script>
+
+<section id="task-prompt">
+    <h2>Task Prompt</h2>
+    <input type="text" id="taskInput" placeholder="Enter your task">
+    <button id="sendTask">Send Task</button>
+    <div id="response"></div>
+</section>
+
+<section id="frustration-simulation">
+    <h2>Frustration Simulation</h2>
+    <button id="simulateFrustration">Simulate Frustration</button>
+    <div id="intervention"></div>
+</section>
+
+<section id="adaptive-behavior">
+    <h2>Adaptive Behavior</h2>
+    <button id="completeTask">Complete Task</button>
+    <div id="adaptiveMessage"></div>
+</section>
+
 </body>
 </html>

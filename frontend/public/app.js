@@ -95,3 +95,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('button').forEach(button => button.classList.add('light'));
     document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
 });
+
+// Task Prompt Functionality
+document.getElementById('sendTask').addEventListener('click', async () => {
+    const task = document.getElementById('taskInput').value;
+    const response = await fetch(`${baseURL}/task_prompt`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task })
+    });
+    const data = await response.json();
+    document.getElementById('response').innerText = data.response;
+});
+
+// Frustration Simulation Functionality
+let frustrationLevel = 0;
+document.getElementById('simulateFrustration').addEventListener('click', async () => {
+    frustrationLevel++;
+    const response = await fetch(`${baseURL}/frustration`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ frustration_level: frustrationLevel })
+    });
+    const data = await response.json();
+    document.getElementById('intervention').innerText = data.intervention;
+});
+
+// Adaptive Behavior Functionality
+document.getElementById('completeTask').addEventListener('click', async () => {
+    const response = await fetch(`${baseURL}/adaptive`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user: 'test_user' })
+    });
+    const data = await response.json();
+    document.getElementById('adaptiveMessage').innerText = data.message;
+});
