@@ -18,25 +18,27 @@
             <span id="theme-label">Light Mode</span>
         </div>
     </header>
-    <main>
-        <section id="task-prompt">
-            <h2>Task Prompt</h2>
-            <input type="text" id="taskInput" placeholder="Enter your task">
-            <button id="sendTask">Send Task</button>
-            <div id="response"></div>
-        </section>
+    <div class="container">
+        <main class="side-sections">
+            <section id="task-prompt">
+                <h2>Task Prompt</h2>
+                <input type="text" id="taskInput" placeholder="Enter your task">
+                <button id="sendTask">Send Task</button>
+                <div id="response"></div>
+            </section>
 
-        <section id="frustration-simulation">
-            <h2>Frustration Simulation</h2>
-            <button id="simulateFrustration">Simulate Frustration</button>
-            <div id="intervention"></div>
-        </section>
+            <section id="frustration-simulation">
+                <h2>Frustration Simulation</h2>
+                <button id="simulateFrustration">Simulate Frustration</button>
+                <div id="intervention"></div>
+            </section>
 
-        <section id="adaptive-behavior">
-            <h2>Adaptive Behavior</h2>
-            <button id="completeTask">Complete Task</button>
-            <div id="adaptiveMessage"></div>
-        </section>
+            <section id="adaptive-behavior">
+                <h2>Adaptive Behavior</h2>
+                <button id="completeTask">Complete Task</button>
+                <div id="adaptiveMessage"></div>
+            </section>
+        </main>
 
         <section id="chat-container">
             <h2>Chat</h2>
@@ -45,7 +47,7 @@
             <button onclick="generateResponse()">Send</button>
             <button onclick="clearChat()">Clear Chat</button>
         </section>
-    </main>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>

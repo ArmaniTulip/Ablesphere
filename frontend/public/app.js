@@ -1,4 +1,3 @@
-// filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/app.js
 async function generateResponse() {
     const prompt = document.getElementById('prompt').value;
     const chatBox = document.getElementById('chat-box');
@@ -9,6 +8,13 @@ async function generateResponse() {
     const userMessageElement = document.createElement('div');
     userMessageElement.classList.add('message', 'user');
     userMessageElement.innerHTML = `<p><strong>You:</strong> ${prompt}</p>`;
+
+    // Apply current theme to the new message
+    if (document.body.classList.contains('dark')) {
+        userMessageElement.classList.add('dark');
+    } else {
+        userMessageElement.classList.add('light');
+    }
 
     // Append user message to the chat box
     chatBox.appendChild(userMessageElement);
@@ -25,30 +31,77 @@ async function generateResponse() {
         <div class="dot"></div>
     `;
 
+    // Apply current theme to the typing indicator
+    if (document.body.classList.contains('dark')) {
+        typingIndicator.classList.add('dark');
+    } else {
+        typingIndicator.classList.add('light');
+    }
+
     // Append typing indicator to the chat box
     chatBox.appendChild(typingIndicator);
 
     // Scroll to the bottom of the chat box
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Simulate an AI response
-    setTimeout(() => {
+    try {
+        // Fetch AI response
+        const response = await fetch('http://127.0.0.1:5000/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+
         // Remove typing indicator
         chatBox.removeChild(typingIndicator);
-
-        const response = `AI Response to: "${prompt}"`;
 
         // Create AI message element
         const aiMessageElement = document.createElement('div');
         aiMessageElement.classList.add('message', 'ai');
-        aiMessageElement.innerHTML = `<p><strong>AI:</strong> ${response}</p>`;
+        aiMessageElement.innerHTML = `<p><strong>AI:</strong> ${data.response}</p>`;
+
+        // Apply current theme to the new message
+        if (document.body.classList.contains('dark')) {
+            aiMessageElement.classList.add('dark');
+        } else {
+            aiMessageElement.classList.add('light');
+        }
 
         // Append AI message to the chat box
         chatBox.appendChild(aiMessageElement);
 
         // Scroll to the bottom of the chat box
         chatBox.scrollTop = chatBox.scrollHeight;
-    }, 1000); // Simulate a delay for AI response
+    } catch (error) {
+        console.error('Error fetching AI response:', error);
+
+        // Remove typing indicator
+        chatBox.removeChild(typingIndicator);
+
+        // Show error message
+        const errorMessageElement = document.createElement('div');
+        errorMessageElement.classList.add('message', 'error');
+        errorMessageElement.innerHTML = `<p><strong>Error:</strong> Failed to fetch AI response. Please try again later.</p>`;
+
+        // Apply current theme to the error message
+        if (document.body.classList.contains('dark')) {
+            errorMessageElement.classList.add('dark');
+        } else {
+            errorMessageElement.classList.add('light');
+        }
+
+        // Append error message to the chat box
+        chatBox.appendChild(errorMessageElement);
+
+        // Scroll to the bottom of the chat box
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 }
 
 function clearChat() {
@@ -66,6 +119,7 @@ function toggleTheme() {
     const dots = document.querySelectorAll('.dot');
     const messages = document.querySelectorAll('.message');
     const themeLabel = document.getElementById('theme-label');
+    const sections = document.querySelectorAll('section');
 
     body.classList.toggle('dark');
     body.classList.toggle('light');
@@ -87,6 +141,11 @@ function toggleTheme() {
     });
     messages.forEach(message => {
         message.classList.toggle('dark');
+        message.classList.toggle('light');
+    });
+    sections.forEach(section => {
+        section.classList.toggle('dark');
+        section.classList.toggle('light');
     });
 
     // Update theme label
@@ -145,5 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('textarea').classList.add('light');
     document.querySelectorAll('button').forEach(button => button.classList.add('light'));
     document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
+    document.querySelectorAll('section').forEach(section => section.classList.add('light'));
     document.getElementById('theme-label').textContent = 'Light Mode';
 });

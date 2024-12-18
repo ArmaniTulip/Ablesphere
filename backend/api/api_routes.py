@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
-from chatgpt_integration import get_openai_response  # Correct function name
-
-user_data = {}
+from chatgpt_integration import get_openai_response
 
 def setup_routes(app):
     @app.route('/api/task_prompt', methods=['POST'])
@@ -21,6 +19,8 @@ def setup_routes(app):
         else:
             return jsonify({"intervention": "You're doing great! Keep it up."})
 
+    user_data = {}
+
     @app.route('/api/adaptive', methods=['POST'])
     def adaptive():
         user = request.json.get('user', 'default')
@@ -35,13 +35,16 @@ def setup_routes(app):
             message = "Keep going! You're making progress."
 
         return jsonify({"message": message})
-    
-# api_routes.py
-def setup_routes(app):
-    @app.route('/')
-    def home():
-        return "Welcome to the home page!"
-    
-    @app.route('/about')
-    def about():
-        return "This is the about page"
+
+    @app.route('/api/chat', methods=['POST'])
+    def chat():
+        data = request.json
+        prompt = data.get('prompt', '')
+        print(f"Received prompt: {prompt}")  # Log the received prompt
+        try:
+            response = get_openai_response(prompt)
+            print(f"OpenAI response: {response}")  # Log the OpenAI response
+            return jsonify({"response": response})
+        except Exception as e:
+            print(f"Error: {e}")  # Log any errors
+            return jsonify({"error": str(e)}), 500
