@@ -1,2 +1,4 @@
-pyhton-dotenv
+python-dotenv
+python-CORS
+Live-Server
 ```
