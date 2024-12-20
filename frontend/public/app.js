@@ -64,7 +64,7 @@ async function generateResponse() {
         // Create AI message element
         const aiMessageElement = document.createElement('div');
         aiMessageElement.classList.add('message', 'ai');
-        aiMessageElement.innerHTML = `<p><strong>AI:</strong> ${data.response}</p>`;
+        aiMessageElement.innerHTML = `<p><strong>AbleSphere:</strong> ${data.response}</p>`;
 
         // Apply current theme to the new message
         if (document.body.classList.contains('dark')) {
