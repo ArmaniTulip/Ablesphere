@@ -27,13 +27,45 @@ header {
     gap: 0.5rem;
 }
 
+/* Container styles */
 .container {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 2rem;
+    padding: 20px;
     gap: 2rem;
     flex: 1;
+}
+
+/* Main content styles */
+.main-content {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Left sections styles */
+.left-sections {
+    .left-sections {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align items to the left */
+        flex: 1;
+        margin-right: 20px;
+        gap: 1rem; /* Add spacing between items */
+    }
+}
+
+/* Chat container styles */
+#chat-container {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center chat container */
+    justify-content: center;
+    margin-right: 20px;
+    max-width: 600px;
+    margin: auto; /* Ensure it's centered horizontally */
 }
 
 .side-sections {
@@ -51,17 +83,20 @@ main {
     gap: 2rem;
 }
 
+/* Additional styles for sections */
 section {
-    background-color: #eae7dc; /* Earthy section color */
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    animation: fadeIn 0.5s ease-out;
     width: 100%;
     max-width: 300px;
 }
 
 #chat-container {
-    flex: 1;
+    flex: 2;
     max-width: 600px;
     display: flex;
     flex-direction: column;
@@ -346,4 +381,55 @@ input:checked + .slider:before {
 ::-webkit-scrollbar-thumb {
     background-color: #aa864f;
     border-radius: 4px;
+}
+
+/* Style for the user dashboard */
+#user-dashboard {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align to the right */
+    justify-content: flex-start;
+    margin-left: auto; /* Push it to the right */
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9
+}
+
+#user-dashboard h2 {
+    margin-bottom: 10px;
+}
+
+#user-info p {
+    margin: 5px 0;
+}
+
+#logout {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#logout:hover {
+    background-color: #0056b3;
+}
+
+/* Dark mode styles */
+body.dark #user-dashboard {
+    background-color: #333;
+    color: white;
+}
+
+body.dark #logout {
+    background-color: #0056b3;
+}
+
+body.dark #logout:hover {
+    background-color: #003f7f;
 }

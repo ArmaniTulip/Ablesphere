@@ -190,4 +190,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.dot').forEach(dot => dot.classList.add('light'));
     document.querySelectorAll('section').forEach(section => section.classList.add('light'));
     document.getElementById('theme-label').textContent = 'Light Mode';
+
+    // Load user information
+    loadUserInfo();
+
+    // Add event listener for logout button
+    document.getElementById('logout').addEventListener('click', () => {
+        alert('Logged out successfully.');
+        // Redirect to login page or perform other logout actions
+    });
 });
+
+function loadUserInfo() {
+    // Fetch user information from backend or local storage
+    const userInfo = {
+        username: 'John Doe',
+        email: 'john.doe@example.com',
+        tasksCompleted: 5
+    };
+
+    // Update user dashboard with user information
+    document.getElementById('username').textContent = userInfo.username;
+    document.getElementById('email').textContent = userInfo.email;
+    document.getElementById('tasksCompleted').textContent = userInfo.tasksCompleted;
+}
