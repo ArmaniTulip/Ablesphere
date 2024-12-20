@@ -48,3 +48,18 @@ def setup_routes(app):
         except Exception as e:
             print(f"Error: {e}")  # Log any errors
             return jsonify({"error": str(e)}), 500
+        
+    @app.route('/api/upload_iep', methods=['POST'])
+    def upload_iep():
+        if 'iep' not in request.files:
+            return jsonify({"message": "No file part"}), 400
+
+        file = request.files['iep']
+
+        if file.filename == '':
+            return jsonify({"message": "No selected file"}), 400
+
+        if file:
+            filename = secure_filename(file.filename)
+            file.save(os.path.join('uploads', filename))
+            return jsonify({"message": "IEP uploaded successfully"}), 200

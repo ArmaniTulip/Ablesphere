@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdaptAI Frontend</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
+        <img src="images/AbleSphere.png" alt="Ablesphere Logo" id="logo">
         <h1>Welcome to Ablesphere</h1>
         <div class="theme-toggle">
             <label class="switch">
@@ -38,6 +40,13 @@
                 <button id="completeTask">Complete Task</button>
                 <div id="adaptiveMessage"></div>
             </section>
+
+            <section id="iep-upload">
+                <h2>Upload IEP</h2>
+                <input type="file" id="iepFile" accept=".pdf,.doc,.docx">
+                <button id="uploadIep">Upload IEP</button>
+                <div id="uploadResponse"></div>
+            </section>
         </main>
 
         <section id="chat-container">
@@ -49,5 +58,36 @@
         </section>
     </div>
     <script src="app.js"></script>
+    <script>
+        document.getElementById('uploadIep').addEventListener('click', async () => {
+            const fileInput = document.getElementById('iepFile');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file to upload.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('iep', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/api/upload_iep', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                document.getElementById('uploadResponse').innerText = data.message;
+            } catch (error) {
+                console.error('Error uploading IEP:', error);
+                document.getElementById('uploadResponse').innerText = 'Failed to upload IEP. Please try again later.';
+            }
+        });
+    </script>
 </body>
 </html>
