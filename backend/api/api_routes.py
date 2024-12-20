@@ -59,7 +59,7 @@ def setup_routes(app):
         if file.filename == '':
             return jsonify({"message": "No selected file"}), 400
 
-        if file:
-            filename = secure_filename(file.filename)
-            file.save(os.path.join('uploads', filename))
-            return jsonify({"message": "IEP uploaded successfully"}), 200
+        # if file:
+        #     filename = secure_filename(file.filename)
+        #     file.save(os.path.join('uploads', filename))
+        #     return jsonify({"message": "IEP uploaded successfully"}), 200
