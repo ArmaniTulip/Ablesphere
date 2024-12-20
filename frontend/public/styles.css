@@ -204,7 +204,8 @@ header.light {
 }
 
 #chat-container.light {
-    background-color: #eae7dc; /* Light earthy section color */
+    background-color: white;
+    color: black;
 }
 
 #chat-box.light {
@@ -252,6 +253,7 @@ header.dark {
 
 #chat-container.dark {
     background-color: #3e3e3e; /* Dark earthy section color */
+    color: white;
 }
 
 #chat-box.dark {
