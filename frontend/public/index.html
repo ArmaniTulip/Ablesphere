@@ -3,31 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ablesphere</title>
+    <title>Ablesphere Chat</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <img src="src/AbleSphere.png" alt="Ablesphere Logo">
-        <h1>Welcome to Ablesphere</h1>
-    </header>
-    <main>
-        <section id="introduction">
-            <h2>Introduction</h2>
-            <p>Welcome to Ablesphere, your adaptive learning platform.</p>
-        </section>
-        <section id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>Adaptive Learning</li>
-                <li>ChatGPT Integration</li>
-                <li>Personalized Feedback</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Ablesphere. All rights reserved.</p>
-    </footer>
+    <div id="chat-container">
+        <div id="chat-window">
+            <div id="chat-messages"></div>
+        </div>
+        <input type="text" id="chat-input" placeholder="Type your message here...">
+        <button id="send-button">Send</button>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
