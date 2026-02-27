@@ -1,7 +1,6 @@
-/* filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f1ea; /* Earthy background color */
+    background-color: #f4f1ea;
     color: #333;
     margin: 0;
     padding: 0;
@@ -11,7 +10,7 @@ body {
 }
 
 header {
-    background-color: #8d8741; /* Earthy header color */
+    background-color: #8d8741;
     color: #fff;
     padding: 1rem;
     text-align: center;
@@ -27,7 +26,6 @@ header {
     gap: 0.5rem;
 }
 
-/* Container styles */
 .container {
     display: flex;
     justify-content: center;
@@ -37,35 +35,30 @@ header {
     flex: 1;
 }
 
-/* Main content styles */
 .main-content {
     display: flex;
     width: 100%;
     max-width: 1200px;
 }
 
-/* Left sections styles */
 .left-sections {
-    .left-sections {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; /* Align items to the left */
-        flex: 1;
-        margin-right: 20px;
-        gap: 1rem; /* Add spacing between items */
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    margin-right: 20px;
+    gap: 1rem;
 }
 
-/* Chat container styles */
 #chat-container {
     flex: 2;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center chat container */
+    align-items: center;
     justify-content: center;
     margin-right: 20px;
     max-width: 600px;
-    margin: auto; /* Ensure it's centered horizontally */
+    margin: auto;
 }
 
 .side-sections {
@@ -83,7 +76,6 @@ main {
     gap: 2rem;
 }
 
-/* Additional styles for sections */
 section {
     margin-bottom: 20px;
     padding: 20px;
@@ -95,14 +87,6 @@ section {
     max-width: 300px;
 }
 
-#chat-container {
-    flex: 2;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 h2 {
     margin-top: 0;
     color: #8d8741;
@@ -111,7 +95,7 @@ h2 {
 #input-container {
     display: flex;
     gap: 0.5rem;
-    height: 50px; /* Adjusted height for the input container */
+    height: 50px;
 }
 
 input[type="text"], textarea {
@@ -124,7 +108,7 @@ input[type="text"], textarea {
 }
 
 button {
-    background-color: #228B22; /* Forest green button color */
+    background-color: #228B22;
     color: #fff;
     padding: 0.5rem 1rem;
     border: none;
@@ -150,8 +134,8 @@ button:hover {
 .message {
     margin-bottom: 1rem;
     animation: fadeIn 0.5s;
-    word-wrap: break-word; /* Ensure long words break and wrap */
-    white-space: pre-wrap; /* Preserve whitespace and wrap text */
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .message p {
@@ -161,7 +145,7 @@ button:hover {
 .message.user {
     text-align: right;
     color: #333;
-    background-color: #f4f1ea; /* Light background for user messages */
+    background-color: #f4f1ea;
     padding: 0.5rem;
     border-radius: 4px;
 }
@@ -169,7 +153,7 @@ button:hover {
 .message.ai {
     text-align: left;
     color: #8d8741;
-    background-color: #eae7dc; /* Light background for AI messages */
+    background-color: #eae7dc;
     padding: 0.5rem;
     border-radius: 4px;
 }
@@ -189,11 +173,11 @@ button:hover {
     animation: blink 1s infinite;
 }
 
-typin-indicator .dot:nth-child(2) {
+typing-indicator .dot:nth-child(2) {
     animation-delay: 0.2s;
 }
 
-.typing-indicator .dot:nth-child(3) {
+typing-indicator .dot:nth-child(3) {
     animation-delay: 0.4s;
 }
 
@@ -206,9 +190,6 @@ typin-indicator .dot:nth-child(2) {
         opacity: 1;
         transform: translateY(0);
     }
-}
-section {
-    animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes blink {
@@ -232,14 +213,13 @@ section {
     background-color: #f4f1ea;
 }
 
-/* Light Theme */
 body.light {
-    background-color: #f4f1ea; /* Light earthy background color */
+    background-color: #f4f1ea;
     color: #333;
 }
 
 header.light {
-    background-color: #8d8741; /* Light earthy header color */
+    background-color: #8d8741;
     color: #fff;
 }
 
@@ -253,22 +233,22 @@ header.light {
 }
 
 textarea.light, button.light {
-    background-color: #d8c3a5; /* Light earthy button color */
+    background-color: #d8c3a5;
     color: #333;
 }
 
 button.light:hover {
-    background-color: #e98074; /* Light earthy hover color */
+    background-color: #e98074;
 }
 
 .message.user.light {
-    background-color: #f4f1ea; /* Light background for user messages */
-    color: #333; /* Dark text color for user messages */
+    background-color: #f4f1ea;
+    color: #333;
 }
 
 .message.ai.light {
-    background-color: #eae7dc; /* Light background for AI messages */
-    color: #8d8741; /* Dark text color for AI messages */
+    background-color: #eae7dc;
+    color: #8d8741;
 }
 
 .typing-indicator .dot.light {
@@ -276,23 +256,22 @@ button.light:hover {
 }
 
 section.light {
-    background-color: #eae7dc; /* Light background for sections */
-    color: #333; /* Dark text color for sections */
+    background-color: #eae7dc;
+    color: #333;
 }
 
-/* Dark Theme */
 body.dark {
-    background-color: #2e2e2e; /* Dark earthy background color */
+    background-color: #2e2e2e;
     color: #f4f1ea;
 }
 
 header.dark {
-    background-color: #4b4b4b; /* Dark earthy header color */
+    background-color: #4b4b4b;
     color: #f4f1ea;
 }
 
 #chat-container.dark {
-    background-color: #3e3e3e; /* Dark earthy section color */
+    background-color: #3e3e3e;
     color: white;
 }
 
@@ -301,22 +280,22 @@ header.dark {
 }
 
 textarea.dark, button.dark {
-    background-color: #5a5a5a; /* Dark earthy button color */
+    background-color: #5a5a5a;
     color: #f4f1ea;
 }
 
 button.dark:hover {
-    background-color: #7a7a7a; /* Dark earthy hover color */
+    background-color: #7a7a7a;
 }
 
 .message.user.dark {
-    background-color: #4b4b4b; /* Dark background for user messages */
-    color: #f4f1ea; /* Light text color for user messages */
+    background-color: #4b4b4b;
+    color: #f4f1ea;
 }
 
 .message.ai.dark {
-    background-color: #5a5a5a; /* Dark background for AI messages */
-    color: #f4f1ea; /* Light text color for AI messages */
+    background-color: #5a5a5a;
+    color: #f4f1ea;
 }
 
 .typing-indicator .dot.dark {
@@ -324,11 +303,10 @@ button.dark:hover {
 }
 
 section.dark {
-    background-color: #3e3e3e; /* Dark background for sections */
-    color: #f4f1ea; /* Light text color for sections */
+    background-color: #3e3e3e;
+    color: #f4f1ea;
 }
 
-/* Toggle Switch */
 .switch {
     position: relative;
     display: inline-block;
@@ -383,14 +361,13 @@ input:checked + .slider:before {
     border-radius: 4px;
 }
 
-/* Style for the user dashboard */
 #user-dashboard {
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* Align to the right */
+    align-items: flex-end;
     justify-content: flex-start;
-    margin-left: auto; /* Push it to the right */
+    margin-left: auto;
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -420,7 +397,6 @@ input:checked + .slider:before {
     background-color: #0056b3;
 }
 
-/* Dark mode styles */
 body.dark #user-dashboard {
     background-color: #333;
     color: white;
