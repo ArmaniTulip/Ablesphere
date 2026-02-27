@@ -1,103 +1,33 @@
-<!-- filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdaptAI Frontend</title>
+    <title>Ablesphere</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
-        <img src="images/AbleSphere.png" alt="Ablesphere Logo" id="logo">
+        <img src="src/AbleSphere.png" alt="Ablesphere Logo">
         <h1>Welcome to Ablesphere</h1>
-        <div class="theme-toggle">
-            <label class="switch">
-                <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
-                <span class="slider round"></span>
-            </label>
-            <span id="theme-label">Light Mode</span>
-        </div>
     </header>
-    <div class="container">
-        <main class="side-sections">
-            <section id="task-prompt">
-                <h2>Task Prompt</h2>
-                <input type="text" id="taskInput" placeholder="Enter your task">
-                <button id="sendTask">Send Task</button>
-                <div id="response"></div>
-            </section>
-
-            <section id="frustration-simulation">
-                <h2>Frustration Simulation</h2>
-                <button id="simulateFrustration">Simulate Frustration</button>
-                <div id="intervention"></div>
-            </section>
-
-            <section id="adaptive-behavior">
-                <h2>Task Complete</h2>
-                <button id="completeTask">Complete Task</button>
-                <div id="adaptiveMessage"></div>
-            </section>
-
-            <section id="iep-upload">
-                <h2>Upload IEP</h2>
-                <input type="file" id="iepFile" accept=".pdf,.doc,.docx">
-                <button id="uploadIep">Upload IEP</button>
-                <div id="uploadResponse"></div>
-            </section>
-        </main>
-
-        <section id="chat-container">
-            <h2>Chat</h2>
-            <div id="chat-box"></div>
-            <textarea id="prompt" placeholder="Type your message here..."></textarea>
-            <button onclick="generateResponse()">Send</button>
-            <button onclick="clearChat()">Clear Chat</button>
+    <main>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Welcome to Ablesphere, your adaptive learning platform.</p>
         </section>
-
-        <section id="user-dashboard">
-            <h2>User Dashboard</h2>
-            <div id="user-info">
-                <p><strong>Username:</strong> <span id="username">John Doe</span></p>
-                <p><strong>Email:</strong> <span id="email">john.doe@example.com</span></p>
-                <p><strong>Tasks Completed:</strong> <span id="tasksCompleted">0</span></p>
-            </div>
-            <button id="logout">Logout</button>
+        <section id="features">
+            <h2>Features</h2>
+            <ul>
+                <li>Adaptive Learning</li>
+                <li>ChatGPT Integration</li>
+                <li>Personalized Feedback</li>
+            </ul>
         </section>
-    </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Ablesphere. All rights reserved.</p>
+    </footer>
     <script src="app.js"></script>
-    <script>
-        document.getElementById('uploadIep').addEventListener('click', async () => {
-            const fileInput = document.getElementById('iepFile');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('Please select a file to upload.');
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('iep', file);
-
-            try {
-                const response = await fetch('http://127.0.0.1:5000/api/upload_iep', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-                document.getElementById('uploadResponse').innerText = data.message;
-            } catch (error) {
-                console.error('Error uploading IEP:', error);
-                document.getElementById('uploadResponse').innerText = 'Failed to upload IEP. Please try again later.';
-            }
-        });
-    </script>
 </body>
 </html>
