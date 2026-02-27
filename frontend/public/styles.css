@@ -1,435 +1,67 @@
-/* filepath: /c:/Users/arman/Documents/GitHub/AdaptAI/src/frontend/styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f1ea; /* Earthy background color */
-    color: #333;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+    line-height: 1.6;
+    color: #333;
 }
 
 header {
-    background-color: #8d8741; /* Earthy header color */
-    color: #fff;
-    padding: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 0;
     text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.theme-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.logo {
+    width: 100px;
 }
 
-/* Container styles */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-    gap: 2rem;
-    flex: 1;
+nav ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-/* Main content styles */
-.main-content {
-    display: flex;
-    width: 100%;
-    max-width: 1200px;
+nav ul li {
+    display: inline;
+    margin: 0 10px;
 }
 
-/* Left sections styles */
-.left-sections {
-    .left-sections {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; /* Align items to the left */
-        flex: 1;
-        margin-right: 20px;
-        gap: 1rem; /* Add spacing between items */
-    }
-}
-
-/* Chat container styles */
-#chat-container {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center chat container */
-    justify-content: center;
-    margin-right: 20px;
-    max-width: 600px;
-    margin: auto; /* Ensure it's centered horizontally */
-}
-
-.side-sections {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+nav ul li a {
+    color: white;
+    text-decoration: none;
 }
 
 main {
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-}
-
-/* Additional styles for sections */
-section {
-    margin-bottom: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    animation: fadeIn 0.5s ease-out;
-    width: 100%;
-    max-width: 300px;
-}
-
-#chat-container {
-    flex: 2;
-    max-width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-h2 {
-    margin-top: 0;
-    color: #8d8741;
-}
-
-#input-container {
-    display: flex;
-    gap: 0.5rem;
-    height: 50px; /* Adjusted height for the input container */
-}
-
-input[type="text"], textarea {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-}
-
-button {
-    background-color: #228B22; /* Forest green button color */
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    display: block;
-    width: auto;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-button:hover {
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.hidden {
-    display: none;
-}
-
-.message {
-    margin-bottom: 1rem;
-    animation: fadeIn 0.5s;
-    word-wrap: break-word; /* Ensure long words break and wrap */
-    white-space: pre-wrap; /* Preserve whitespace and wrap text */
-}
-
-.message p {
-    margin: 0.5rem 0;
-}
-
-.message.user {
-    text-align: right;
-    color: #333;
-    background-color: #f4f1ea; /* Light background for user messages */
-    padding: 0.5rem;
-    border-radius: 4px;
-}
-
-.message.ai {
-    text-align: left;
-    color: #8d8741;
-    background-color: #eae7dc; /* Light background for AI messages */
-    padding: 0.5rem;
-    border-radius: 4px;
-}
-
-.typing-indicator {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.typing-indicator .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin: 0 2px;
-    background-color: #8d8741;
-    animation: blink 1s infinite;
-}
-
-typin-indicator .dot:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.typing-indicator .dot:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 section {
-    animation: fadeIn 0.5s ease-out;
+    margin: 20px 0;
+    max-width: 800px;
+    text-align: center;
 }
 
-@keyframes blink {
-    0%, 100% {
-        opacity: 0.2;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-#chat-box {
-    flex: 1;
-    width: 100%;
-    max-height: 400px;
-    overflow-y: auto;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #f4f1ea;
-}
-
-/* Light Theme */
-body.light {
-    background-color: #f4f1ea; /* Light earthy background color */
-    color: #333;
-}
-
-header.light {
-    background-color: #8d8741; /* Light earthy header color */
-    color: #fff;
-}
-
-#chat-container.light {
-    background-color: white;
-    color: black;
-}
-
-#chat-box.light {
-    background-color: #f4f1ea;
-}
-
-textarea.light, button.light {
-    background-color: #d8c3a5; /* Light earthy button color */
-    color: #333;
-}
-
-button.light:hover {
-    background-color: #e98074; /* Light earthy hover color */
-}
-
-.message.user.light {
-    background-color: #f4f1ea; /* Light background for user messages */
-    color: #333; /* Dark text color for user messages */
-}
-
-.message.ai.light {
-    background-color: #eae7dc; /* Light background for AI messages */
-    color: #8d8741; /* Dark text color for AI messages */
-}
-
-.typing-indicator .dot.light {
-    background-color: #8d8741;
-}
-
-section.light {
-    background-color: #eae7dc; /* Light background for sections */
-    color: #333; /* Dark text color for sections */
-}
-
-/* Dark Theme */
-body.dark {
-    background-color: #2e2e2e; /* Dark earthy background color */
-    color: #f4f1ea;
-}
-
-header.dark {
-    background-color: #4b4b4b; /* Dark earthy header color */
-    color: #f4f1ea;
-}
-
-#chat-container.dark {
-    background-color: #3e3e3e; /* Dark earthy section color */
-    color: white;
-}
-
-#chat-box.dark {
-    background-color: #2e2e2e;
-}
-
-textarea.dark, button.dark {
-    background-color: #5a5a5a; /* Dark earthy button color */
-    color: #f4f1ea;
-}
-
-button.dark:hover {
-    background-color: #7a7a7a; /* Dark earthy hover color */
-}
-
-.message.user.dark {
-    background-color: #4b4b4b; /* Dark background for user messages */
-    color: #f4f1ea; /* Light text color for user messages */
-}
-
-.message.ai.dark {
-    background-color: #5a5a5a; /* Dark background for AI messages */
-    color: #f4f1ea; /* Light text color for AI messages */
-}
-
-.typing-indicator .dot.dark {
-    background-color: #4b4b4b;
-}
-
-section.dark {
-    background-color: #3e3e3e; /* Dark background for sections */
-    color: #f4f1ea; /* Light text color for sections */
-}
-
-/* Toggle Switch */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, #8d8741, #aa864f);
-    transition: .4s;
-    border-radius: 34px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
-
-input:checked + .slider {
-    background-color: #aa864f;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #aa864f;
-    border-radius: 4px;
-}
-
-/* Style for the user dashboard */
-#user-dashboard {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Align to the right */
-    justify-content: flex-start;
-    margin-left: auto; /* Push it to the right */
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9
-}
-
-#user-dashboard h2 {
-    margin-bottom: 10px;
-}
-
-#user-info p {
-    margin: 5px 0;
-}
-
-#logout {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#logout:hover {
-    background-color: #0056b3;
-}
-
-/* Dark mode styles */
-body.dark #user-dashboard {
+footer {
     background-color: #333;
     color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
-body.dark #logout {
-    background-color: #0056b3;
-}
+@media (min-width: 768px) {
+    main {
+        flex-direction: row;
+        justify-content: space-around;
+    }
 
-body.dark #logout:hover {
-    background-color: #003f7f;
+    section {
+        margin: 20px;
+    }
 }
