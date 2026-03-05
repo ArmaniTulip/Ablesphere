@@ -94,9 +94,19 @@ function toggleTheme() {
     const body = document.body;
     const themeLabel = document.getElementById('theme-label');
     
+    const isDark = toggleBodyTheme(body);
+    toggleElementsTheme(isDark);
+
+    themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+}
+
+function toggleBodyTheme(body) {
     const isDark = body.classList.toggle('dark');
     body.classList.toggle('light', !isDark);
+    return isDark;
+}
 
+function toggleElementsTheme(isDark) {
     const elementsToToggle = [
         document.querySelector('header'),
         document.getElementById('chat-container'),
@@ -112,8 +122,6 @@ function toggleTheme() {
         el.classList.toggle('dark', isDark);
         el.classList.toggle('light', !isDark);
     });
-
-    themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
 }
 
 
