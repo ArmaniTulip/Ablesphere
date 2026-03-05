@@ -93,10 +93,18 @@ function clearChat() {
 function toggleTheme() {
     const body = document.body;
     const themeLabel = document.getElementById('theme-label');
-    
+    const isDark = toggleBodyClass(body);
+    toggleElementsClass(isDark);
+    themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+}
+
+function toggleBodyClass(body) {
     const isDark = body.classList.toggle('dark');
     body.classList.toggle('light', !isDark);
+    return isDark;
+}
 
+function toggleElementsClass(isDark) {
     const elementsToToggle = [
         document.querySelector('header'),
         document.getElementById('chat-container'),
@@ -112,10 +120,7 @@ function toggleTheme() {
         el.classList.toggle('dark', isDark);
         el.classList.toggle('light', !isDark);
     });
-
-    themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
 }
-
 
 // Task Prompt
 const sendTaskButton = document.getElementById('sendTask');
