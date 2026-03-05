@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from chatgpt_integration import get_openai_response
 
+
 def setup_routes(app):
     @app.route('/api/task_prompt', methods=['POST'])
     def task_prompt():
@@ -40,15 +41,27 @@ def setup_routes(app):
     def chat():
         data = request.json
         prompt = data.get('prompt', '')
-        print(f"Received prompt: {prompt}")  # Log the received prompt
+        log_received_prompt(prompt)
         try:
-            response = get_openai_response(prompt)
-            print(f"OpenAI response: {response}")  # Log the OpenAI response
+            response = get_chatgpt_response(prompt)
+            log_openai_response(response)
             return jsonify({"response": response})
         except Exception as e:
-            print(f"Error: {e}")  # Log any errors
+            log_error(e)
             return jsonify({"error": str(e)}), 500
-        
+
+    def log_received_prompt(prompt):
+        print(f"Received prompt: {prompt}")  # Log the received prompt
+
+    def log_openai_response(response):
+        print(f"OpenAI response: {response}")  # Log the OpenAI response
+
+    def log_error(error):
+        print(f"Error: {error}")  # Log any errors
+
+    def get_chatgpt_response(prompt):
+        return get_openai_response(prompt)
+
     @app.route('/api/upload_iep', methods=['POST'])
     def upload_iep():
         if 'iep' not in request.files:
