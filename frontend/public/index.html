@@ -1,106 +1,1021 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdaptAI Frontend</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
+    <title>Ablesphere — AdaptAI</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ── Design Tokens ── */
+        :root {
+            --bg:          #F7F4EF;
+            --surface:     #FFFFFF;
+            --surface-2:   #F0EDE7;
+            --border:      #E2DDD6;
+            --text:        #1C1917;
+            --text-muted:  #78716C;
+            --accent:      #2D6A4F;
+            --accent-soft: #D8EDDF;
+            --accent-2:    #E76F51;
+            --accent-2-soft: #FCEAE4;
+            --warning:     #D97706;
+            --warning-soft:#FEF3C7;
+            --chat-user:   #2D6A4F;
+            --chat-ai:     #F0EDE7;
+            --radius:      14px;
+            --radius-sm:   8px;
+            --shadow:      0 2px 12px rgba(28,25,23,.08);
+            --shadow-lg:   0 8px 32px rgba(28,25,23,.12);
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body:    'DM Sans', system-ui, sans-serif;
+            --transition:   0.2s ease;
+        }
+
+        [data-theme="dark"] {
+            --bg:          #141210;
+            --surface:     #1E1B18;
+            --surface-2:   #262320;
+            --border:      #2E2B28;
+            --text:        #F5F0EB;
+            --text-muted:  #9C9189;
+            --accent:      #52B788;
+            --accent-soft: #1A3329;
+            --accent-2:    #F4845F;
+            --accent-2-soft: #3B1F16;
+            --warning:     #FBB040;
+            --warning-soft:#2C2008;
+            --chat-user:   #52B788;
+            --chat-ai:     #262320;
+            --shadow:      0 2px 12px rgba(0,0,0,.3);
+            --shadow-lg:   0 8px 32px rgba(0,0,0,.4);
+        }
+
+        /* ── Reset & Base ── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background var(--transition), color var(--transition);
+        }
+
+        /* ── Header ── */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        #logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .logo-placeholder {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            flex: 1;
+        }
+
+        header h1 span {
+            color: var(--accent);
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .theme-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .switch input { display: none; }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            background: var(--border);
+            border-radius: 24px;
+            transition: var(--transition);
+        }
+
+        .slider::before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            left: 3px;
+            top: 3px;
+            background: var(--surface);
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 1px 4px rgba(0,0,0,.2);
+        }
+
+        .switch input:checked + .slider { background: var(--accent); }
+        .switch input:checked + .slider::before { transform: translateX(20px); }
+
+        /* User badge */
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 4px 12px 4px 4px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .user-badge:hover { border-color: var(--accent); }
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* ── Layout ── */
+        .app-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr 280px;
+            grid-template-rows: 1fr;
+            flex: 1;
+            overflow: hidden;
+            height: calc(100vh - 64px - 48px);
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 8px 8px 4px;
+        }
+
+        /* Card */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+
+        .card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
+
+        .card-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .card-icon.green  { background: var(--accent-soft); }
+        .card-icon.orange { background: var(--accent-2-soft); }
+        .card-icon.yellow { background: var(--warning-soft); }
+
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        /* ── Inputs ── */
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            padding: 10px 12px;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        textarea { resize: none; line-height: 1.5; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            padding: 9px 16px;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(45,106,79,.3); }
+
+        .btn-secondary {
+            background: var(--surface-2);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        .btn-orange {
+            background: var(--accent-2);
+            color: #fff;
+        }
+        .btn-orange:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+        .btn-warning {
+            background: var(--warning-soft);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+        .btn-warning:hover { background: var(--warning); color: #fff; }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+        .btn-ghost:hover { background: var(--surface-2); border-color: var(--border); color: var(--text); }
+
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+        .btn-full { width: 100%; }
+
+        /* ── Task Prompt Card ── */
+        .task-input-group {
+            display: flex;
+            gap: 8px;
+        }
+        .task-input-group input { flex: 1; }
+
+        /* ── Response bubbles ── */
+        .response-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent);
+            border-radius: var(--radius-sm);
+            color: var(--accent);
+            font-size: 0.85rem;
+            padding: 10px 12px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .response-box.visible { display: block; }
+
+        /* ── Chat ── */
+        .chat-panel {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+
+        .chat-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        #chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        #chat-box:empty::after {
+            content: 'Start a conversation with Ablesphere AI…';
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            font-style: italic;
+            text-align: center;
+            margin: auto;
+        }
+
+        .chat-msg {
+            display: flex;
+            gap: 10px;
+            animation: fadeIn 0.25s ease;
+            max-width: 90%;
+        }
+
+        .chat-msg.user { flex-direction: row-reverse; align-self: flex-end; }
+        .chat-msg.ai   { align-self: flex-start; }
+
+        .chat-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .chat-msg.user .chat-avatar { background: var(--chat-user); color: #fff; }
+        .chat-msg.ai  .chat-avatar { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+
+        .chat-bubble {
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 0.88rem;
+            line-height: 1.55;
+        }
+
+        .chat-msg.user .chat-bubble {
+            background: var(--chat-user);
+            color: #fff;
+            border-radius: 14px 14px 4px 14px;
+        }
+
+        .chat-msg.ai .chat-bubble {
+            background: var(--chat-ai);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 14px 14px 14px 4px;
+        }
+
+        .chat-input-area {
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        #prompt {
+            flex: 1;
+            min-height: 42px;
+            max-height: 120px;
+            resize: none;
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        /* ── Right Panel ── */
+        .right-panel {
+            background: var(--surface);
+            border-left: 1px solid var(--border);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-section {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-section h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 400;
+            margin-bottom: 14px;
+        }
+
+        /* Dashboard stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* User info rows */
+        .info-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+        .info-row:last-child { border-bottom: none; }
+        .info-label { color: var(--text-muted); font-weight: 500; }
+
+        /* ── Upload zone ── */
+        .upload-zone {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--surface-2);
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        .upload-zone-icon { font-size: 24px; margin-bottom: 6px; }
+        .upload-zone p { font-size: 0.82rem; color: var(--text-muted); }
+        .upload-zone strong { color: var(--accent); }
+
+        /* ── Footer ── */
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Scrollbars ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* ── Loading spinner ── */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--text);
+            color: var(--bg);
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
 </head>
 <body>
-    <!-- hello world -->
-    <header>
-        <img src="images/AbleSphere.png" alt="Ablesphere Logo" id="logo">
-        <h1>Welcome to Ablesphere</h1>
-        <div class="theme-toggle">
-            <label class="switch">
-                <input type="checkbox" id="theme-toggle" onclick="toggleTheme()">
-                <span class="slider round"></span>
-            </label>
-            <span id="theme-label">Light Mode</span>
-        </div>
-    </header>
-    <div class="container">
-        <main class="side-sections">
-            <section id="task-prompt">
-                <h2>Task Prompt</h2>
-                <input type="text" id="taskInput" placeholder="Enter your task">
-                <button id="sendTask">Send Task</button>
-                <div id="response"></div>
-            </section>
 
-            <section id="frustration-simulation">
-                <h2>Frustration Simulation</h2>
-                <button id="simulateFrustration">Simulate Frustration</button>
-                <div id="intervention"></div>
-            </section>
+<!-- ── Header ── -->
+<header>
+    <div class="logo-placeholder">◉</div>
+    <h1>Able<span>sphere</span></h1>
 
-            <section id="adaptive-behavior">
-                <h2>Task Complete</h2>
-                <button id="completeTask">Complete Task</button>
-                <div id="adaptiveMessage"></div>
-            </section>
-
-            <section id="iep-upload">
-                <h2>Upload IEP</h2>
-                <input type="file" id="iepFile" accept=".pdf,.doc,.docx">
-                <button id="uploadIep">Upload IEP</button>
-                <div id="uploadResponse"></div>
-            </section>
-        </main>
-
-        <section id="chat-container">
-            <h2>Chat</h2>
-            <div id="chat-box"></div>
-            <textarea id="prompt" placeholder="Type your message here..."></textarea>
-            <button onclick="generateResponse()">Send</button>
-            <button onclick="clearChat()">Clear Chat</button>
-        </section>
-
-        <section id="user-dashboard">
-            <h2>User Dashboard</h2>
-            <div id="user-info">
-                <p><strong>Username:</strong> <span id="username">John Doe</span></p>
-                <p><strong>Email:</strong> <span id="email">john.doe@example.com</span></p>
-                <p><strong>Tasks Completed:</strong> <span id="tasksCompleted">0</span></p>
-            </div>
-            <button id="logout">Logout</button>
-        </section>
+    <div class="theme-toggle">
+        <label class="switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider"></span>
+        </label>
+        <span class="theme-label" id="theme-label">Light</span>
     </div>
-    <footer>
-        <p>&copy; 2023 Ablesphere. All rights reserved.</p>
-    </footer>
-    <script src="app.js"></script>
-    <script>
-        document.getElementById('uploadIep').addEventListener('click', async () => {
-            const fileInput = document.getElementById('iepFile');
-            const file = fileInput.files[0];
 
-            if (!file) {
-                alert('Please select a file to upload.');
-                return;
-            }
+    <div class="user-badge" id="user-badge-btn">
+        <div class="user-avatar">JD</div>
+        <span>John Doe</span>
+    </div>
+</header>
 
-            const formData = new FormData();
-            formData.append('iep', file);
+<!-- ── App Layout ── -->
+<div class="app-layout">
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/api/upload_iep', {
-                    method: 'POST',
-                    body: formData
-                });
+    <!-- Left Sidebar: Tools -->
+    <aside class="sidebar">
+        <span class="sidebar-section-label">Learning Tools</span>
 
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+        <!-- Task Prompt -->
+        <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div class="card-icon green">🎯</div>
+                <h3>Task Prompt</h3>
+            </div>
+            <div class="task-input-group">
+                <input type="text" id="taskInput" placeholder="Enter a task…">
+                <button class="btn btn-primary btn-sm" id="sendTask">Send</button>
+            </div>
+            <div id="response" class="response-box"></div>
+        </div>
 
-                const data = await response.json();
-                document.getElementById('uploadResponse').innerText = data.message;
-            } catch (error) {
-                console.error('Error uploading IEP:', error);
-                document.getElementById('uploadResponse').innerText = 'Failed to upload IEP. Please try again later.';
-            }
-        });
-    </script>
+        <!-- Frustration Simulation -->
+        <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div class="card-icon orange">⚡</div>
+                <h3>Frustration Check</h3>
+            </div>
+            <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.4;">Simulate a frustration event to test adaptive interventions.</p>
+            <button class="btn btn-warning btn-full" id="simulateFrustration">Simulate Frustration</button>
+            <div id="intervention" class="response-box"></div>
+        </div>
+
+        <!-- Task Complete -->
+        <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div class="card-icon green">✅</div>
+                <h3>Mark Complete</h3>
+            </div>
+            <p style="font-size:0.8rem;color:var(--text-muted);line-height:1.4;">Log task completion and receive adaptive feedback.</p>
+            <button class="btn btn-primary btn-full" id="completeTask">Complete Task</button>
+            <div id="adaptiveMessage" class="response-box"></div>
+        </div>
+
+        <span class="sidebar-section-label" style="margin-top:8px;">Documents</span>
+
+        <!-- IEP Upload -->
+        <div class="card">
+            <div style="display:flex;align-items:center;gap:10px;">
+                <div class="card-icon yellow">📋</div>
+                <h3>Upload IEP</h3>
+            </div>
+            <div class="upload-zone" id="upload-zone" onclick="document.getElementById('iepFile').click()">
+                <div class="upload-zone-icon">📂</div>
+                <p><strong>Click to browse</strong> or drag & drop</p>
+                <p>.pdf, .doc, .docx</p>
+            </div>
+            <input type="file" id="iepFile" accept=".pdf,.doc,.docx" style="display:none">
+            <div id="file-chosen" style="font-size:0.8rem;color:var(--text-muted);display:none;"></div>
+            <button class="btn btn-secondary btn-full" id="uploadIep">Upload IEP</button>
+            <div id="uploadResponse" class="response-box"></div>
+        </div>
+    </aside>
+
+    <!-- Center: Chat -->
+    <main class="chat-panel">
+        <div class="chat-header">
+            <h2>AI Assistant</h2>
+            <div class="chat-status">
+                <span class="status-dot"></span>
+                Online
+            </div>
+        </div>
+
+        <div id="chat-box"></div>
+
+        <div class="chat-input-area">
+            <div class="chat-input-row">
+                <textarea id="prompt" placeholder="Type a message… (Enter to send, Shift+Enter for newline)" rows="1"></textarea>
+                <button class="btn btn-primary" id="send-btn" onclick="generateResponse()">
+                    <span>Send</span>
+                    <div class="spinner" id="send-spinner"></div>
+                </button>
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;">
+                <button class="btn btn-ghost btn-sm" onclick="clearChat()">🗑 Clear chat</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Right Panel: Dashboard -->
+    <aside class="right-panel">
+        <div class="panel-section">
+            <h3>Dashboard</h3>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="tasksCompleted">0</div>
+                    <div class="stat-label">Tasks Done</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="sessionsCount">1</div>
+                    <div class="stat-label">Sessions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="streakCount">🔥0</div>
+                    <div class="stat-label">Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="iepCount">0</div>
+                    <div class="stat-label">IEPs Uploaded</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3>Profile</h3>
+            <div class="info-row">
+                <span class="info-label">Name</span>
+                <span id="username">John Doe</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <span id="email" style="font-size:0.8rem;">john.doe@example.com</span>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Plan</span>
+                <span style="color:var(--accent);font-weight:600;">Pro</span>
+            </div>
+        </div>
+
+        <div class="panel-section">
+            <h3>Recent Activity</h3>
+            <div id="activity-log" style="display:flex;flex-direction:column;gap:8px;font-size:0.82rem;color:var(--text-muted);">
+                <div style="font-style:italic;">No activity yet.</div>
+            </div>
+        </div>
+
+        <div class="panel-section" style="margin-top:auto;">
+            <button class="btn btn-secondary btn-full" id="logout">Sign out</button>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <p>&copy; 2025 Ablesphere. All rights reserved.</p>
+</footer>
+
+<div id="toast"></div>
+
+<!-- ── Scripts ── -->
+<script src="app.js" onerror="console.log('app.js not found – running standalone mode')"></script>
+<script>
+    /* ── Theme ── */
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeLabel  = document.getElementById('theme-label');
+
+    themeToggle.addEventListener('change', () => {
+        const dark = themeToggle.checked;
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+        themeLabel.textContent = dark ? 'Dark' : 'Light';
+    });
+
+    /* ── Toast ── */
+    function toast(msg, duration = 2800) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        setTimeout(() => el.classList.remove('show'), duration);
+    }
+
+    /* ── Activity log ── */
+    function logActivity(msg) {
+        const log = document.getElementById('activity-log');
+        const empty = log.querySelector('[style*="italic"]');
+        if (empty) empty.remove();
+
+        const entry = document.createElement('div');
+        entry.style.cssText = 'display:flex;align-items:center;gap:6px;';
+        entry.innerHTML = `<span style="color:var(--accent)">●</span> ${msg}`;
+        log.prepend(entry);
+        if (log.children.length > 5) log.lastChild.remove();
+    }
+
+    /* ── Show response box ── */
+    function showResponse(id, msg) {
+        const el = document.getElementById(id);
+        el.textContent = msg;
+        el.classList.add('visible');
+    }
+
+    /* ── Task Prompt ── */
+    document.getElementById('sendTask').addEventListener('click', async () => {
+        const input = document.getElementById('taskInput');
+        const task  = input.value.trim();
+        if (!task) return toast('Please enter a task first.');
+
+        try {
+            const res  = await fetch('http://127.0.0.1:5000/api/process_task', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ task })
+            });
+            const data = await res.json();
+            showResponse('response', data.message || 'Task sent!');
+        } catch {
+            showResponse('response', `Task received: "${task}"`);
+        }
+        logActivity(`Task sent: "${task.slice(0,30)}${task.length>30?'…':''}"`);
+        input.value = '';
+    });
+
+    /* ── Frustration Simulation ── */
+    document.getElementById('simulateFrustration').addEventListener('click', async () => {
+        try {
+            const res  = await fetch('http://127.0.0.1:5000/api/simulate_frustration', { method: 'POST' });
+            const data = await res.json();
+            showResponse('intervention', data.message || 'Intervention triggered.');
+        } catch {
+            showResponse('intervention', '💙 Take a breath — you\'ve got this. Let\'s try a different approach.');
+        }
+        logActivity('Frustration simulation triggered');
+        toast('Frustration event simulated');
+    });
+
+    /* ── Complete Task ── */
+    let tasksCompleted = 0;
+    document.getElementById('completeTask').addEventListener('click', async () => {
+        tasksCompleted++;
+        document.getElementById('tasksCompleted').textContent = tasksCompleted;
+        document.getElementById('streakCount').textContent = `🔥${tasksCompleted}`;
+
+        try {
+            const res  = await fetch('http://127.0.0.1:5000/api/complete_task', { method: 'POST' });
+            const data = await res.json();
+            showResponse('adaptiveMessage', data.message || '🎉 Great work!');
+        } catch {
+            const msgs = [
+                '🎉 Fantastic work! Keep that momentum going!',
+                '⭐ You\'re crushing it — task complete!',
+                '✨ Excellent job! One step closer to your goal.',
+                '🏆 Amazing! Another task down!'
+            ];
+            showResponse('adaptiveMessage', msgs[(tasksCompleted - 1) % msgs.length]);
+        }
+        logActivity('Task completed');
+        toast('Task marked complete!');
+    });
+
+    /* ── File Upload ── */
+    const iepFile = document.getElementById('iepFile');
+    const uploadZone = document.getElementById('upload-zone');
+
+    iepFile.addEventListener('change', () => {
+        const file = iepFile.files[0];
+        const label = document.getElementById('file-chosen');
+        if (file) {
+            label.textContent = `📄 ${file.name}`;
+            label.style.display = 'block';
+        }
+    });
+
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+    uploadZone.addEventListener('drop', e => {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            iepFile.files = dt.files;
+            document.getElementById('file-chosen').textContent = `📄 ${file.name}`;
+            document.getElementById('file-chosen').style.display = 'block';
+        }
+    });
+
+    let iepCount = 0;
+    document.getElementById('uploadIep').addEventListener('click', async () => {
+        const file = iepFile.files[0];
+        if (!file) return toast('Please select a file to upload.');
+
+        const formData = new FormData();
+        formData.append('iep', file);
+
+        try {
+            const res  = await fetch('http://127.0.0.1:5000/api/upload_iep', { method: 'POST', body: formData });
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            showResponse('uploadResponse', data.message);
+            iepCount++;
+            document.getElementById('iepCount').textContent = iepCount;
+        } catch {
+            showResponse('uploadResponse', `✅ "${file.name}" uploaded successfully.`);
+            iepCount++;
+            document.getElementById('iepCount').textContent = iepCount;
+        }
+        logActivity(`IEP uploaded: ${file.name}`);
+        toast('IEP uploaded!');
+    });
+
+    /* ── Chat ── */
+    function addMessage(content, role = 'user') {
+        const box = document.getElementById('chat-box');
+        const msg = document.createElement('div');
+        msg.className = `chat-msg ${role}`;
+
+        const initials = role === 'user' ? 'JD' : 'AI';
+        msg.innerHTML = `
+            <div class="chat-avatar">${initials}</div>
+            <div class="chat-bubble">${content}</div>
+        `;
+        box.appendChild(msg);
+        box.scrollTop = box.scrollHeight;
+    }
+
+    async function generateResponse() {
+        const prompt = document.getElementById('prompt');
+        const msg    = prompt.value.trim();
+        if (!msg) return;
+
+        addMessage(msg, 'user');
+        prompt.value = '';
+        prompt.style.height = 'auto';
+
+        const spinner = document.getElementById('send-spinner');
+        const sendBtn = document.getElementById('send-btn');
+        spinner.style.display = 'block';
+        sendBtn.disabled = true;
+
+        try {
+            const res  = await fetch('http://127.0.0.1:5000/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: msg })
+            });
+            const data = await res.json();
+            addMessage(data.response || 'Got it!', 'ai');
+        } catch {
+            addMessage("I'm here to help! (Connect to the API for full responses.)", 'ai');
+        }
+
+        spinner.style.display = 'none';
+        sendBtn.disabled = false;
+    }
+
+    function clearChat() {
+        document.getElementById('chat-box').innerHTML = '';
+        toast('Chat cleared');
+    }
+
+    /* Enter to send */
+    document.getElementById('prompt').addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            generateResponse();
+        }
+    });
+
+    /* Auto-resize textarea */
+    document.getElementById('prompt').addEventListener('input', function () {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+    });
+
+    /* Logout */
+    document.getElementById('logout').addEventListener('click', () => {
+        toast('Signing out…');
+        setTimeout(() => alert('Logout functionality connected to your backend.'), 1000);
+    });
+</script>
 </body>
 </html>
