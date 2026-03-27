@@ -1,16 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 from chatgpt_integration import get_openai_response
 
+api_bp = Blueprint('api', __name__)
 
 def setup_routes(app):
-    @app.route('/api/task_prompt', methods=['POST'])
+    app.register_blueprint(api_bp)
+
+    @api_bp.route('/task_prompt', methods=['POST'])
     def task_prompt():
         data = request.json
         user_input = data.get('task', '')
         response = get_openai_response(user_input)
         return jsonify({"response": response})
 
-    @app.route('/api/frustration', methods=['POST'])
+    @api_bp.route('/frustration', methods=['POST'])
     def frustration():
         data = request.json
         frustration_level = data.get('frustration_level', 0)
@@ -22,7 +25,7 @@ def setup_routes(app):
 
     user_data = {}
 
-    @app.route('/api/adaptive', methods=['POST'])
+    @api_bp.route('/adaptive', methods=['POST'])
     def adaptive():
         user = request.json.get('user', 'default')
         if user not in user_data:
@@ -37,7 +40,7 @@ def setup_routes(app):
 
         return jsonify({"message": message})
 
-    @app.route('/api/chat', methods=['POST'])
+    @api_bp.route('/chat', methods=['POST'])
     def chat():
         data = request.json
         prompt = data.get('prompt', '')
@@ -62,7 +65,7 @@ def setup_routes(app):
     def get_chatgpt_response(prompt):
         return get_openai_response(prompt)
 
-    @app.route('/api/upload_iep', methods=['POST'])
+    @api_bp.route('/upload_iep', methods=['POST'])
     def upload_iep():
         if 'iep' not in request.files:
             return jsonify({"message": "No file part"}), 400
